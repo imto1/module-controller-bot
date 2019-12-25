@@ -83,7 +83,7 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
-            username = update["message"]["from"]["username"]
+            username = update["message"]["chat"]["username"]
             if text == "/start":
                 start_bot(chat)
             elif text.startswith("$"):
