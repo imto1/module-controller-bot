@@ -8,17 +8,25 @@ import urllib
 import json
 import requests
 
+
+#initializing log
 now = datetime.datetime.now()
 logging.basicConfig(filename=("log/" + str(now.year) + str(now.month) + str(now.day) + ".log"),
                     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
 logger = logging.getLogger(__name__)
 
+
+#global variables
 TOKEN = "970592554:AAFMNLvMAShUMgjcw_XbKsN3ozI9psrEVAQ"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-ACCOUNTS = (
-    "test" : "12345678",
-    )
-
+AUTHORIZED = {
+    "test" : "12345678"
+    }
+ROOT = ()
+NA = ()
+username = ""
+password = ""
+loged_in = False
 
 #API handlers
 def get_url(url):
@@ -76,34 +84,34 @@ def handle_updates(updates):
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             if text == "/start":
-                start-bot()
+                start_bot(chat)
             elif text.startswith("$"):
                 command = text.substing(1)
-                internal-command(command, chat)
+                internal_command(command, chat)
             else:
                 pass
         except KeyError:
             pass
 
 
-#Events
+#events
 def terminal(command):
     if command in NA:
         return "'{}' is not supported!".format(command)
     elif command in ROOT and login-check() == False:
-        return "Unauthorized access! Please login first:\n/login"
-    else
-        return console(command)
+        return "Unauthorized access! Please login first!"
+    else:
+        return excecute(command)
 
 
-def console(command):
+def excecute(command):
     try:
-        if command == "user":
+        if command == "password":
             args = command.split("=")
             if args[1] in ACCOUNTS:
                 return "Insert your password:\nHint: $passwd=password"
             else:
-                return "User not found"
+                return "Login failed!"
         else:
             output = subprocess.run(command, stdout=subprocess.PIPE)
             return output.stdout.decode("utf-8")
@@ -112,11 +120,13 @@ def console(command):
         return str(e)
 
 
-def start-bot():
-    pass
+def start_bot(chat):
+	send_message(str(chat), chat)
+    #"Welcome!\nIOT module controller."
+    #login(chat)
 
     
-def internal-command(command, chat):
+def internal_command(command, chat):
     out = "`"
     out += terminal(text)
     out += "`"
@@ -127,6 +137,7 @@ def login():
     send_message("**Login:**\n`Hint: $user=username`", chat)
 
 
+#main
 def main():
     last_update_id = None
     while True:
