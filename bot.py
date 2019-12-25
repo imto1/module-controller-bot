@@ -54,6 +54,7 @@ def get_last_chat_id_and_text(updates):
     last_update = num_updates -1
     text = updates["result"][last_update]["message"]["text"]
     chat_id = updates["result"][last_update]["message"]["chat"]["id"]
+    username = updates["result"][last_update]["message"]["from"]["username"]
     return (text, chat_id)
 
 
@@ -83,7 +84,6 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
-            username = update["message"]["chat"]["username"]
             if text == "/start":
                 start_bot(chat)
             elif text.startswith("$"):
