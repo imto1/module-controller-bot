@@ -83,6 +83,7 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
+            username = update["message"]["from"]["username"]
             if text == "/start":
                 start_bot(chat)
             elif text.startswith("$"):
@@ -121,8 +122,7 @@ def excecute(command):
 
 
 def start_bot(chat):
-	send_message(str(chat), chat)
-    #"Welcome!\nIOT module controller."
+	send_message("Welcome {}!\nIOT module controller.".format(username), chat)
     #login(chat)
 
     
