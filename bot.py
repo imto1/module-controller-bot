@@ -83,9 +83,10 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
-            Chat = update["message"]["chat"]
             if text == "/start":
-                start_bot(Chat)
+				name = update["message"]["chat"]["first_name"]
+				user = update["message"]["chat"]["username"]	
+            	start_bot(name, user, chat)
             elif text.startswith("$"):
                 command = text.substing(1)
                 internal_command(command, chat)
@@ -121,10 +122,8 @@ def excecute(command):
         return str(e)
 
 
-def start_bot(chat):
-	user = chat["username"]
-	name = chat["first_name"]
-	send_message("Welcome {}!\nIOT module controller for {}.".format(name, user), chat["id"])
+def start_bot(name, user, chat):
+	send_message("Welcome {}!\nIOT module controller for {}.".format(name, user), chat)
     #login(chat)
 
     
@@ -137,6 +136,10 @@ def internal_command(command, chat):
 
 def login():
     send_message("**Login:**\n`Hint: $user=username`", chat)
+
+
+#utils
+def log(message)
 
 
 #main
