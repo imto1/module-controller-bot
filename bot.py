@@ -83,8 +83,9 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
+            Chat = update["message"]["chat"]
             if text == "/start":
-                start_bot(chat)
+                start_bot(Chat)
             elif text.startswith("$"):
                 command = text.substing(1)
                 internal_command(command, chat)
