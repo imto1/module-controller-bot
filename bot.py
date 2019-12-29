@@ -84,9 +84,9 @@ def handle_updates(updates):
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             if text == "/start":
-				name = update["message"]["chat"]["first_name"]
-				user = update["message"]["chat"]["username"]	
-            	start_bot(name, user, chat)
+                name = update["message"]["chat"]["first_name"]
+                user = update["message"]["chat"]["username"]	
+                start_bot(name, user, chat)
             elif text.startswith("$"):
                 command = text.substing(1)
                 internal_command(command, chat)
@@ -139,7 +139,7 @@ def login():
 
 
 #utils
-def log(message)
+#def log(message)
 
 
 #main
