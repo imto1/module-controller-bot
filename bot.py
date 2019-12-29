@@ -1,4 +1,7 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
+"""Main bot file. It will communicate with Telegram API."""
+
+
 import time
 import logging
 import datetime
@@ -7,6 +10,16 @@ import os
 import urllib
 import json
 import requests
+
+
+__author__ = "S. Vahid Hosseini"
+__copyright__ = "Copyright 2019, IOT Module Controller"
+__credits__ = ["S. Vahid Hosseini"]
+__license__ = "GPL-3.0"
+__version__ = "0.1"
+__maintainer__ = "S. Vahid Hosseini"
+__email__ = "s.vahid.h@behmerd.ir"
+__status__ = "Dev"
 
 
 #initializing log
