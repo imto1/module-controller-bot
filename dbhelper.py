@@ -21,9 +21,9 @@ class DBHelper:
 
 
     def setup(self):
-        table_statement = "CREATE TABLE IF NOT EXISTS users (user_id text, username text, first_name text, last_name text, password text)"
-        user_index = "CREATE INDEX IF NOT EXISTS userIndex ON users (username ASC)" 
-        id_index = "CREATE INDEX IF NOT EXISTS idIndex ON users (user_id ASC)"
+        table_statement = "CREATE TABLE IF NOT EXISTS \"users\" ( `id` INTEGER, `user_id` INTEGER NOT NULL, `username` TEXT NOT NULL, `first_name` TEXT, `last_name` TEXT, `password` TEXT NOT NULL, PRIMARY KEY(`id`) )"
+        user_index = "CREATE INDEX IF NOT EXISTS `userIndex` ON `users` ( `username` ASC )" 
+        id_index = "CREATE INDEX IF NOT EXISTS `idIndex` ON `users` ( `user_id` ASC )"
         self.conn.execute(table_statement)
         self.conn.execute(user_index)
         self.conn.execute(id_index)
