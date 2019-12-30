@@ -1,16 +1,11 @@
 #!/usr/bin/env python3
 """Main bot file. It will communicate with Telegram API."""
 
-
-import time
-import logging
-import datetime
-import subprocess
-import os
 import urllib
 import json
 import requests
 
+from dbhelper import DBHelper
 
 __author__ = "S. Vahid Hosseini"
 __copyright__ = "Copyright 2019, IOT Module Controller"
@@ -22,24 +17,10 @@ __email__ = "s.vahid.h@behmerd.ir"
 __status__ = "Dev"
 
 
-#initializing log
-now = datetime.datetime.now()
-logging.basicConfig(filename=("log/" + str(now.year) + str(now.month) + str(now.day) + ".log"),
-                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-
 #global variables
 TOKEN = "970592554:AAFMNLvMAShUMgjcw_XbKsN3ozI9psrEVAQ"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
-AUTHORIZED = {
-    "test" : "12345678"
-    }
-ROOT = ()
-NA = ()
-username = ""
-password = ""
-loged_in = False
+database = DBHelper()
 
 #API handlers
 def get_url(url):
@@ -121,43 +102,44 @@ def terminal(command):
 
 def excecute(command):
     try:
-        if command == "password":
+        if command == "login":
             args = command.split("=")
             if args[1] in ACCOUNTS:
-                return "Insert your password:\nHint: $passwd=password"
+                return "Insert your password:"
             else:
                 return "Login failed!"
         else:
-            output = subprocess.run(command, stdout=subprocess.PIPE)
-            return output.stdout.decode("utf-8")
+            pass
     except Exception as e:
         print(e)
         return str(e)
 
 
+def internal_command(command, chat):
+    response = "`"
+    response += terminal(command)
+    response += "`"
+    send_message(response, chat)
+
+
+def login(username):
+    send_message("**Login:**\n`Insert your password:`", chat)
+
+
+#bot commands
 def start_bot(name, user, chat):
-	send_message("Welcome {}!\nIOT module controller for {}.".format(name, user), chat)
+	send_message("IOT module controller.\nWelcome {}!".format(name), chat)
     #login(chat)
 
-    
-def internal_command(command, chat):
-    out = "`"
-    out += terminal(text)
-    out += "`"
-    send_message(out, chat)
-
-
-def login():
-    send_message("**Login:**\n`Hint: $user=username`", chat)
 
 
 #utils
-#def log(message)
 
 
 #main
 def main():
     last_update_id = None
+    database.setup()
     while True:
         updates = get_updates(last_update_id)
         if len(updates["result"]) > 0:

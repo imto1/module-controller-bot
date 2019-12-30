@@ -1,9 +1,7 @@
 #!/usr/bin/env python3
 """SQLight database manager."""
 
-
 import sqlite3
-
 
 __author__ = "S. Vahid Hosseini"
 __copyright__ = "Copyright 2019, IOT Module Controller"
