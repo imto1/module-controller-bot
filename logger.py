@@ -17,7 +17,7 @@ __status__ = "Dev"
 
 class Log:
 
-	def __init__(self, sender=""):
+	def __init__(self):
 		now = datetime.datetime.now()
 		logging.basicConfig(filename=("log/" + str(now.year) + str(now.month) + str(now.day) + ".log"),
 		                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
