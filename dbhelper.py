@@ -19,6 +19,7 @@ class DBHelper:
         self.dbname = dbname
         self.conn = sqlite3.connect(dbname)
 
+
     def setup(self):
         table_statement = "CREATE TABLE IF NOT EXISTS users (user_id text, username text, first_name text, last_name text, password text)"
         user_index = "CREATE INDEX IF NOT EXISTS userIndex ON users (username ASC)" 
@@ -28,17 +29,20 @@ class DBHelper:
         self.conn.execute(id_index)
         self.conn.commit()
 
+
     def add_user(self, user_id, username, first_name, last_name, password):
         statement = "INSERT INTO users (user_id, username, first_name, last_name, password) VALUES (?, ?, ?, ?, ?)"
         args = (user_id, username, first_name, last_name, password, )
         self.conn.execute(statement, args)
         self.conn.commit()
 
+
     def delete_user(self, user_id):
         statement = "DELETE FROM users WHERE user_id = (?)"
         args = (user_id, )
         self.conn.execute(statement, args)
         self.conn.commit()
+
 
     def get_user(self, user_id):
         statement = "SELECT user_id, username, first_name, last_name, password FROM users WHERE user_id = (?)"
