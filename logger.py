@@ -17,8 +17,10 @@ __status__ = "Dev"
 
 class Log:
 
+	FORMAT = "%(levelname)s\n %(asctime)s\t %(sender)s >>> %(user)s - %(message)s"
+
 	def __init__(self):
 		now = datetime.datetime.now()
 		logging.basicConfig(filename=("log/" + str(now.year) + str(now.month) + str(now.day) + ".log"),
-		                    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO)
+		                    format=FORMAT, level=logging.INFO)
 		self.logger = logging.getLogger(__name__)

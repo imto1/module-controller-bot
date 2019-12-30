@@ -6,6 +6,7 @@ import json
 import requests
 
 from dbhelper import DBHelper
+from logger import Log
 
 __author__ = "S. Vahid Hosseini"
 __copyright__ = "Copyright 2019, IOT Module Controller"
@@ -21,6 +22,7 @@ __status__ = "Dev"
 TOKEN = "970592554:AAFMNLvMAShUMgjcw_XbKsN3ozI9psrEVAQ"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 database = DBHelper()
+logger = Log.logger
 
 #API handlers
 def get_url(url):
@@ -77,6 +79,8 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
+            args = {"sender":"main", "user":update["message"]["chat"]["username"]}
+            logging.warning('update received: %s', text, extra=args)
             if text == "/start":
                 name = update["message"]["chat"]["first_name"]
                 user = update["message"]["chat"]["username"]	
@@ -130,7 +134,6 @@ def login(username):
 def start_bot(name, user, chat):
 	send_message("IOT module controller.\nWelcome {}!".format(name), chat)
     #login(chat)
-
 
 
 #utils
