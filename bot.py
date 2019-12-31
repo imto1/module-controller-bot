@@ -81,7 +81,7 @@ def handle_updates(updates):
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             args = {"sender":"main", "user":update["message"]["chat"]["username"]}
-            log.out.warning('update received: %s', text, extra=args)
+            log.out.info('update received: %s', text, extra=args)
             if text == "/start":
                 name = update["message"]["chat"]["first_name"]
                 user = update["message"]["chat"]["username"]	
