@@ -15,7 +15,7 @@ __email__ = "s.vahid.h@behmerd.ir"
 __status__ = "Dev"
 
 
-class Log:
+class Logger:
 
 	FORMAT = "%(levelname)s\n %(asctime)s\t %(sender)s >>> %(user)s - %(message)s"
 
@@ -23,4 +23,4 @@ class Log:
 		now = datetime.datetime.now()
 		logging.basicConfig(filename=("log/" + str(now.year) + str(now.month) + str(now.day) + ".log"),
 		                    format=FORMAT, level=logging.INFO)
-		self.logger = logging.getLogger(__name__)
+		self.out = logging.getLogger(__name__)

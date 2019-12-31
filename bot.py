@@ -6,7 +6,7 @@ import json
 import requests
 
 from dbhelper import DBHelper
-from logger import Log
+from logger import Logger
 
 __author__ = "S. Vahid Hosseini"
 __copyright__ = "Copyright 2019, IOT Module Controller"
@@ -22,7 +22,7 @@ __status__ = "Dev"
 TOKEN = "970592554:AAFMNLvMAShUMgjcw_XbKsN3ozI9psrEVAQ"
 URL = "https://api.telegram.org/bot{}/".format(TOKEN)
 database = DBHelper()
-logger = Log.logger
+log = Logger()
 
 #API handlers
 def get_url(url):
@@ -80,7 +80,7 @@ def handle_updates(updates):
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
             args = {"sender":"main", "user":update["message"]["chat"]["username"]}
-            logging.warning('update received: %s', text, extra=args)
+            log.out.warning('update received: %s', text, extra=args)
             if text == "/start":
                 name = update["message"]["chat"]["first_name"]
                 user = update["message"]["chat"]["username"]	
