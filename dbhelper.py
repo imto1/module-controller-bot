@@ -21,10 +21,10 @@ class DBHelper:
 
 
     def setup(self):
-        table_statement = "CREATE TABLE IF NOT EXISTS `users` ( `id` INTEGER, `user_id` INTEGER NOT NULL, `username` TEXT NOT NULL, `first_name` TEXT, `last_name` TEXT, `password` TEXT NOT NULL, PRIMARY KEY(`id`) )"
+        table_statement = "CREATE TABLE IF NOT EXISTS `users` ( `id` INTEGER, `user_id` INTEGER NOT NULL, `username` TEXT NOT NULL, `first_name` TEXT, `last_name` TEXT, `password` TEXT NOT NULL, `user_type` TEXT NOT NULL, PRIMARY KEY(`id`) )"
         user_index = "CREATE INDEX IF NOT EXISTS `userIndex` ON `users` ( `username` ASC )" 
         id_index = "CREATE INDEX IF NOT EXISTS `idIndex` ON `users` ( `user_id` ASC )"
-        add_admin = "INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `password`) SELECT 1, 'botadmin', '', '', 'admin12345' WHERE NOT EXISTS (SELECT 1 FROM `users` WHERE `user_id` = 1 AND `username` = 'botadmin')"
+        add_admin = "INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `password`, `user_type`) SELECT 1, 'root', '', '', 'root1234', 'root' WHERE NOT EXISTS (SELECT 1 FROM `users` WHERE `user_id` = 1 AND `username` = 'root')"
         self.conn.execute(table_statement)
         self.conn.execute(user_index)
         self.conn.execute(id_index)
@@ -32,9 +32,9 @@ class DBHelper:
         self.conn.commit()
 
 
-    def add_user(self, user_id, username, first_name, last_name, password):
-        statement = "INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `password`) VALUES (?, ?, ?, ?, ?)"
-        args = (user_id, username, first_name, last_name, password, )
+    def add_user(self, user_id, username, first_name, last_name, password, user_type):
+        statement = "INSERT INTO `users` (`user_id`, `username`, `first_name`, `last_name`, `password`, `user_type`) VALUES (?, ?, ?, ?, ?, ?)"
+        args = (user_id, username, first_name, last_name, password, user_type, )
         self.conn.execute(statement, args)
         self.conn.commit()
 
@@ -47,6 +47,6 @@ class DBHelper:
 
 
     def get_user(self, user_id):
-        statement = "SELECT `user_id`, `username`, `first_name`, `last_name`, `password` FROM `users` WHERE `user_id` = (?)"
+        statement = "SELECT `user_id`, `username`, `first_name`, `last_name`, `password`, `user_type` FROM `users` WHERE `user_id` = (?)"
         args = (user_id, )
         return [x[0] for x in self.conn.execute(statement, args)]
