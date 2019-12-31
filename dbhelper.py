@@ -28,6 +28,7 @@ class DBHelper:
         self.conn.execute(table_statement)
         self.conn.execute(user_index)
         self.conn.execute(id_index)
+        self.conn.execute(add_admin)
         self.conn.commit()
 
 
