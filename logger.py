@@ -2,7 +2,6 @@
 """Log handler module."""
 
 import logging
-import time
 import datetime
 
 __author__ = "S. Vahid Hosseini"
