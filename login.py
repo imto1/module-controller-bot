@@ -19,3 +19,16 @@ __status__ = "Dev"
 
 class Login:
 
+	def __init__(self):
+		self.database = DBHelper()
+
+	def login(self, user, password):
+		account = database.get_user(user["id"])
+		if account is None:
+			return None
+		elif account["password"] == password:
+			
+
+
+	def status(self, user):
+		pass

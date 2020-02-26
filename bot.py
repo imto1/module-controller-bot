@@ -80,29 +80,34 @@ def handle_updates(updates):
         try:
             text = update["message"]["text"]
             chat = update["message"]["chat"]["id"]
-            args = {"sender":"main", "user":update["message"]["chat"]["username"]}
+            user = update["message"]["from"]
+            args = {"sender":"main", "user":user["username"]}
             log.out.info('update received: %s', text, extra=args)
-            if text == "/start":
-                name = update["message"]["chat"]["first_name"]
-                user = update["message"]["chat"]["username"]	
-                start_bot(name, user, chat)
+            if text.startswith("/"):
+                command = text.substing(1)
+                if command == "start":
+                    start_bot(name, user, chat)
             elif text.startswith("$"):
                 command = text.substing(1)
-                internal_command(command, chat)
+                terminal(command, chat)
             else:
                 pass
         except KeyError:
             pass
 
 
-#events
-def terminal(command):
+#internal commands
+def terminal(command, chat):
+    response = "`"
     if command in NA:
-        return "'{}' is not supported!".format(command)
+        response += "'{}' is not supported!".format(command)
     elif command in ROOT and login-check() == False:
-        return "Unauthorized access! Please login first!"
+        response += "Unauthorized access! Please login first!"
     else:
-        return excecute(command)
+        response += excecute(command)
+
+    response += "`"
+    send_message(response, chat)
 
 
 def excecute(command):
@@ -118,13 +123,6 @@ def excecute(command):
     except Exception as e:
         print(e)
         return str(e)
-
-
-def internal_command(command, chat):
-    response = "`"
-    response += terminal(command)
-    response += "`"
-    send_message(response, chat)
 
 
 def login(username):
